@@ -26,8 +26,8 @@ def transH2Z(text):#半角2全角
         return text
 
 def process_org():
-    id_num = 0
-    with open("./wiki_juman.txt","w",encoding="utf-8") as f:
+    id_num = 848518
+    with open("./wiki_juman.txt","a",encoding="utf-8") as f:
         while True:
             print(id_num)
             doc_org = es.get(index="wikipedia",id=id_num)['_source']['text']
@@ -50,7 +50,7 @@ def process_org():
                                 print("aaa")
                                 snt_kuten = snt.split("、")
                                 for snt_k in snt_kuten:
-                                    if len(snt_k) == 0 or snt_k == "\n":
+                                    if len(snt_k) == 0 or snt_k == "\n" or len(snt_k.encode('utf-8')) >= 4096:
                                         continue
                                     doc_k = morphological(snt_k)
                                     doc_str_k = ' '.join(doc_k)
